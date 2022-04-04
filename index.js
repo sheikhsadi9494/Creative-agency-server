@@ -68,8 +68,30 @@ async function run() {
         app.get('/allOrders', async (req, res) => {
             const query = ordersCollection.find({});
             const result = await query.toArray();
-            res.json(result);+
+            res.json(result);
         })
+        //get single order by id
+        app.get('/allOrders/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id)};
+            const result = await ordersCollection.findOne(query);
+            res.json(result);
+        })
+        //delete single order to all ordres
+        app.delete('/allOrders/:id', async (req, res) => {
+            const id  = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const result = await ordersCollection.deleteOne(query);
+            res.json(result);
+        })
+        // update order status
+        app.put('/allOrders/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id)};
+            const updateDoc = { $set: {status: 'Complete'}};
+            const result = await ordersCollection.updateOne(updateDoc, query);
+            res.json(result);
+        }) 
         //post user data to the databse 
         app.post('/user', async (req, res) => {
             const user = req.body;
