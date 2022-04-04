@@ -79,7 +79,7 @@ async function run() {
         })
         //delete single order to all ordres
         app.delete('/allOrders/:id', async (req, res) => {
-            const id  = req.params.id;
+            const id = req.params.id;
             const query = {_id: ObjectId(id)};
             const result = await ordersCollection.deleteOne(query);
             res.json(result);
@@ -88,10 +88,10 @@ async function run() {
         app.put('/allOrders/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id)};
-            const updateDoc = { $set: {status: 'Complete'}};
-            const result = await ordersCollection.updateOne(updateDoc, query);
-            res.json(result);
-        }) 
+            const updateDoc = {$set: {status: 'approved'}};
+            const result = await ordersCollection.updateOne(query, updateDoc);
+            res.json(result)
+        })
         //post user data to the databse 
         app.post('/user', async (req, res) => {
             const user = req.body;
