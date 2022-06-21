@@ -36,6 +36,12 @@ async function run() {
             const result = await servicesCollection.findOne(quiry);
             res.send(result);
         })
+        // post service data 
+        app.post('/services', async (req, res) => {
+            const service = req.body;
+            const result = await servicesCollection.insertOne(service);
+            res.json(result);
+        })
         //post order data to database
         app.post('/orders', async (req, res) => {
             const order = req.body;
@@ -88,7 +94,7 @@ async function run() {
         app.put('/allOrders/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id)};
-            const updateDoc = {$set: {status: 'approved'}};
+            const updateDoc = {$set: {status: 'complete'}};
             const result = await ordersCollection.updateOne(query, updateDoc);
             res.json(result)
         })
