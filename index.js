@@ -42,6 +42,13 @@ async function run() {
             const result = await servicesCollection.insertOne(service);
             res.json(result);
         })
+        //delete service data
+        app.delete('/services/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id)};
+            const result = await servicesCollection.deleteOne(query);
+            res.json(result);
+        })
         //post order data to database
         app.post('/orders', async (req, res) => {
             const order = req.body;
@@ -94,7 +101,7 @@ async function run() {
         app.put('/allOrders/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id)};
-            const updateDoc = {$set: {status: 'complete'}};
+            const updateDoc = {$set: {status: 'Approved'}};
             const result = await ordersCollection.updateOne(query, updateDoc);
             res.json(result)
         })
