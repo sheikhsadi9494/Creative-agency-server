@@ -168,5 +168,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log('server running on', port)
+    console.log('creative agency server running on', port)
 });
